@@ -1,8 +1,9 @@
+from PIL.Image import Image
 import numpy as np
 import os
 import PIL
 import matplotlib.pyplot as plt 
-
+from PIL import Image
 #_______________________________para seleccionar las imagenes________________
 def imageness():
     carpeta = "Objetos"
@@ -27,13 +28,13 @@ def imageness():
             print(f"numero {i+1} : {imagenes[i]}") #mostrar asi el menu
         try:
             opcion = input("ingrese la opcion que desea: ")
-            opcion_num = int(opcion)
+            numerooo = int(opcion)
             
-            if 1 <= opcion_num <= len(imagenes):
-                imagen_seleccionada = imagenes[opcion_num - 1] 
-                ruta_completa = os.path.join(carpeta, imagen_seleccionada) #si esta en el rango correcto
-                print(f"seleccionaste: {imagen_seleccionada}") #selecciona la imagen
-                return ruta_completa
+            if 1 <= numerooo <= len(imagenes):
+                imagen_seleccionada = imagenes[numerooo - 1] 
+                ruta_goti = os.path.join(carpeta, imagen_seleccionada) #si esta en el rango correcto
+                print(f"seleccionaste la opcion: {numerooo} : {imagen_seleccionada}") #selecciona la imagen
+                return ruta_goti
             else:
                 print(f"error, ingrese un numero correcto {len(imagenes)}.")
                 
@@ -41,3 +42,12 @@ def imageness():
             print("ERROR, TIENE QUE INGRESAR UN NUMERO CORRECTO")
 
 seleccionar = imageness()
+
+imagen_lista = Image.open(seleccionar)
+
+tamaño = imagen_lista.size
+
+
+
+print(f"el tamaño es: {tamaño}")
+Image.open(seleccionar).show()
