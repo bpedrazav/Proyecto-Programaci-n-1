@@ -41,48 +41,41 @@ def imageness():
         except ValueError:
             print("ERROR, TIENE QUE INGRESAR UN NUMERO CORRECTO")
 
-seleccionar = imageness()
-imagen_lista = Image.open(seleccionar)
+imagen_seleccionada = Image.open(imageness()) #abre la imagen elegida
+pixeles_imagen = imagen_seleccionada.size #te calcula el tamañp
+
+
+
 
 def fondos():
     carpeta_fondos = "Fondos"
-
     if not os.path.exists(carpeta_fondos):
-        print("no se encontro la carpeta para ver los fondos, intentelo denuevo")
+        print("no se encontro la carpeta de los fondos, intente denuevo") #se busca la carpeta en el directorio
         return None
-    archivos_fondos = os.listdir(carpeta_fondos)
-    fondos = []
-    for archivo in archivos_fondos:
-        if archivo.lower().endswith(('.png', '.jpg')): #muestra solo las q son imagenes
-            fondos.append(archivo)
-            
-    if len(fondos) == 0:
-        print("No se encontraron imágenes válidas en la carpeta.") #si no hay imagenes tira errorr
+        
+    fondosss = os.listdir(carpeta_fondos)
+    buscar_fondos = []
+    for archivo in fondosss:
+        if archivo.lower().endswith(('.png', '.jpg')): #busca solo las imagenes en el directoriooo
+            directorio = os.path.join(carpeta_fondos, archivo)
+            buscar_fondos.append(directorio)
+    if len(buscar_fondos) < 2:
+        print("no hay fondos suficientes para iniciar el programa")
         return None
+    return buscar_fondos[0], buscar_fondos[1] # guardo los fondos en la lista
 
-    while True:
-        print("fondos disponibles:")
-        for i in range(len(fondos)):
-            print(f"numero {i+1} : {fondos[i]}") #mostrar asi el menu
-        try:
-            opcion = input("ingrese la opcion que desea: ")
-            numero_ingresado = int(opcion)
-            
-            if 1 <= numero_ingresado <= len(fondos):
-                fondo_seleccionado = fondos[numero_ingresado - 1] 
-                directorio_fondo = os.path.join(carpeta_fondos, fondo_seleccionado) 
-                print(f"seleccionaste la opcion: {numero_ingresado} : {fondo_seleccionado}") 
-                return directorio_fondo
-            else:
-                print(f"error, ingrese un numero correcto")
-        except ValueError:
-            print("ERROR, TIENE QUE INGRESAR UN NUMERO CORRECTO")
+fondo1, fondo2 = fondos()
+imagen_f1 = Image.open(fondo1) # se cargan
+imagen_f2 = Image.open(fondo2) # los 2 fondoossss
 
-fondos()
+fondo1_redimensionado = imagen_f1.resize(pixeles_imagen)
+fondo2_redimensionado = imagen_f2.resize(pixeles_imagen)
 
 
 
+#______________________________________pasarlos a matrizzzzzzzzzzzzz_____________
+matriz_imagenn = np.array(imagen_seleccionada) # la imagen q seleccionaron se pasa a matriz
+matriz_fondo_uno = np.array(fondo1_redimensionado) # lo mismo con el fondo 1
+matriz_fondo_dos = np.array(fondo2_redimensionado) # y con el fondo 2
 
-tamaño = imagen_lista.size
-print(f"el tamaño de tu imagen en pixles es: {tamaño}")
-Image.open(seleccionar).show()
+def procesarrr():
