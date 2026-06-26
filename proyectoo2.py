@@ -69,7 +69,10 @@ def guardar_imagen(matriz):
 def reemplazar_fondo(img, fondo_nuevo, tolerancia=60):
     fondo = np.array(Image.fromarray(fondo_nuevo).resize((img.shape[1], img.shape[0])))
 
-    color_fondo = img[0, 0].astype(float)
+    esquina_superior = img[0, 0].astype(float)
+    esquina_inferior = img[-1, 0].astype(float)
+
+    color_fondo = (esquina_superior + esquina_inferior) / 2.0
 
     mascara = np.linalg.norm(img.astype(float) - color_fondo, axis=2) < tolerancia
     resultado = img.copy()
