@@ -1,3 +1,11 @@
+# -------------------------------------
+# -------------------------------------
+#  ------PROYECTO DE PROMACION---------
+#  --INTEGRANTES: Vicente Huilcaman----
+# ----------------Benjamin Pedraza-----
+# -------------------------------------
+
+
 import numpy as np
 import os
 import matplotlib.pyplot as plt 
