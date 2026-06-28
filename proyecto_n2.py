@@ -105,37 +105,49 @@ plt.subplots_adjust(bottom=0.2)
 mostrar = ax.imshow(reemplazar_fondo(img, fondo2))
 ax.axis("off")
 
-imagen_actual = [reemplazar_fondo(img, fondo2)]
+imagen_actual = reemplazar_fondo(img, fondo2)
 
-ax_btn1 = plt.axes([0.05, 0.05, 0.2, 0.08])
-ax_btn2 = plt.axes([0.28, 0.05, 0.2, 0.08])
-ax_btn3 = plt.axes([0.51, 0.05, 0.2, 0.08])
-ax_btn4 = plt.axes([0.74, 0.05, 0.2, 0.08])
+estado = {"imagen_actual": imagen_actual}
 
-btn1 = Button(ax_btn1, 'Fondo 1', color='lightgreen', hovercolor='green')
-btn2 = Button(ax_btn2, 'Fondo 2', color='lightgreen', hovercolor='green')
-btn3 = Button(ax_btn3, 'Guardar Imagen', color='lightgreen', hovercolor='green')
-btn4 = Button(ax_btn4, 'Reporte', color='lightyellow', hovercolor='yellow')
+ax_btn1 = plt.axes([0.02, 0.05, 0.2, 0.08])
+ax_btn2 = plt.axes([0.22, 0.05, 0.2, 0.08])
+ax_btn3 = plt.axes([0.42, 0.05, 0.2, 0.08])
+ax_btn4 = plt.axes([0.62, 0.05, 0.2, 0.08])
+ax_btn5 = plt.axes([0.82, 0.05, 0.2, 0.08])
+
+btn1 = Button(ax_btn1, 'Original', color='lightgreen', hovercolor='green')
+btn2 = Button(ax_btn2, 'Fondo 1', color='lightgreen', hovercolor='green')
+btn3 = Button(ax_btn3, 'Fondo 2', color='lightgreen', hovercolor='green')
+btn4 = Button(ax_btn4, 'Guardar Imagen', color='lightgreen', hovercolor='green')
+btn5 = Button(ax_btn5, 'Reporte', color='lightyellow', hovercolor='yellow')
 
 def cambiar_a_fondo1(event):
-    imagen_actual[0] = [reemplazar_fondo(img, fondo1)]
+    imagen_fondo1 = reemplazar_fondo(img, fondo1)
+    estado["imagen_actual"] = imagen_fondo1
     mostrar.set_data(reemplazar_fondo(img, fondo1))
     fig.canvas.draw_idle()
 
 def cambiar_a_fondo2(event):
-    imagen_actual[0] = [reemplazar_fondo(img, fondo2)]
+    imagen_fondo2 = reemplazar_fondo(img, fondo2)
+    estado["imagen_actual"] = imagen_fondo2
     mostrar.set_data(reemplazar_fondo(img, fondo2))
     fig.canvas.draw_idle()
 
 def guardar(event):
-    guardar_imagen(imagen_actual[0])
+    guardar_imagen(estado["imagen_actual"])
 
 def reporte(event):
     generar_reporte(img)
 
-btn1.on_clicked(cambiar_a_fondo1)
-btn2.on_clicked(cambiar_a_fondo2)
-btn3.on_clicked(guardar)
-btn4.on_clicked(reporte)
+def original(event):
+    estado["imagen_actual"] = img
+    mostrar.set_data(img)
+    fig.canvas.draw_idle()
+
+btn1.on_clicked(original)
+btn2.on_clicked(cambiar_a_fondo1)
+btn3.on_clicked(cambiar_a_fondo2)
+btn4.on_clicked(guardar)
+btn5.on_clicked(reporte)
 plt.show()
 
